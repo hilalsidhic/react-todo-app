@@ -5,6 +5,7 @@ function App() {
   const [toDos,settoDos]=useState([])
   const [toDo, settoDo] = useState([])
   return (
+    <section>
     <div className="app">
       <div className="mainHeading">
         <h1>ToDo List</h1>
@@ -15,7 +16,10 @@ function App() {
       </div>
       <div className="input">
         <input value={toDo} onChange={(e)=>settoDo(e.target.value)}type="text" placeholder="🖊️ Add item..." />
-        <i onClick={()=>settoDos([...toDos,{id:Date.now(),text:toDo,status:false}])} className="fas fa-plus"></i>
+        <i onClick={()=>{
+          settoDos([...toDos,{id:Date.now(),text:toDo,status:false}])
+          settoDo([])
+          }} className="fas fa-plus"></i>
       </div>
       <div className="todos">
         { toDos.map((obj)=>{
@@ -51,6 +55,11 @@ function App() {
           );
         })    
         }
+        
+      </div>
+      </div>
+      <div style={{backgroundColor:'red',width:'25%',right:30,position:'absolute',bottom:'0',color:'white',border:'1px solid'}}>
+        <h1 style={{textAlign:'center'}}>Completed Tasks</h1>
         {toDos.map((obj)=>{
           if(obj.status){
             return(
@@ -60,7 +69,7 @@ function App() {
           return null
         })}
       </div>
-    </div>
+    </section>
   );
 }
 
