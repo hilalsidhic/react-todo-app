@@ -1,9 +1,12 @@
 import React,{ useState } from 'react';
 import './App.css';
+import Acomp from './Acomp';
+import Comp from './Comp';
 
 function App() {
   const [toDos,settoDos]=useState([])
   const [toDo, settoDo] = useState([])
+  const [donetoDo,setdonetoDo] = useState([])
   return (
     <section>
     <div className="app">
@@ -44,6 +47,10 @@ function App() {
                   console.log(obj)
                   settoDos(toDos.filter(obj2=>{
                     if(obj2.id===obj.id){
+                      if(obj2.status===true){
+                        setdonetoDo([...donetoDo,obj2])
+                        console.log("donetoDo");
+                      }
                       obj2=null
                       return obj2
                     }
@@ -58,17 +65,8 @@ function App() {
         
       </div>
       </div>
-      <div style={{backgroundColor:'red',width:'25%',right:30,position:'absolute',bottom:'0',color:'white',border:'1px solid'}}>
-        <h1 style={{textAlign:'center'}}>Completed Tasks</h1>
-        {toDos.map((obj)=>{
-          if(obj.status){
-            return(
-              <h1>{obj.text}</h1>
-            )
-          }
-          return null
-        })}
-      </div>
+      <Comp data={toDos}/>
+      <Acomp data={donetoDo}/>
     </section>
   );
 }
